@@ -1,0 +1,60 @@
+First sets
+------------------------------------------------------------------------------
+
+First(start) = {PROGRAM}
+First(varDec) = {VAR, ε} 
+First(varDecList) = {IDENT} 
+First(identListType) = {IDENT} 
+First(identList) = {IDENT} 
+First(type) = {INTEGER, REAL, BOOLEAN, ARRAY} 
+First(simpleType) = {INTEGER, REAL, BOOLEAN} 
+First(subProgList) = {FUNCTION, PROCEDURE, ε} 
+First(subProgHead) = {FUNCTION, PROCEDURE} 
+First(args) = {(, ε} 
+First(parList) = {IDENT} 
+First(compStmt) = {BEGIN} 
+First(stmtList) = {IDENT, IF, WHILE, BEGIN} 
+First(statement) = {IDENT, IF, WHILE, BEGIN} 
+First(procCall) = {IDENT} 
+First(params) = {(} 
+First(assignStmt) = {IDENT} 
+First(index) = {[} 
+First(ifStmt) = {IF} 
+First(elsePart) = {ELSE, ε} 
+First(whileStmt) = {WHILE} 
+First(exprList) = {NUM, FALSE, TRUE, IDENT, NOT, –, (, ε} 
+First(expr) = {NUM, FALSE, TRUE, IDENT, NOT, –, (} 
+First(simpleExpr) = {NUM, FALSE, TRUE, IDENT, NOT, –, (} 
+First(term) = {NUM, FALSE, TRUE, IDENT, NOT, –, (} 
+First(factor) = {NUM, FALSE, TRUE, IDENT, NOT, –, (}
+
+##############################################################################
+Follow Sets
+------------------------------------------------------------------------------
+Follow(start) = {$} 
+Follow(varDec) = {FUNCTION, PROCEDURE, BEGIN} 
+Follow(varDecList) = {:, ;} 
+Follow(identListType) = {;, )} 
+Follow(identList) = {:, ','} 
+Follow(type) = {;, ) } 
+Follow(simpleType) = {;, ) } 
+Follow(subProgList) = {BEGIN} 
+Follow(subProgHead) = {;, VAR, BEGIN} 
+Follow(args) = {:, ;} 
+Follow(parList) = {)} 
+Follow(compStmt) = {.} 
+Follow(stmtList) = {END} 
+Follow(statement) = {;, ELSE, END} 
+Follow(procCall) = {;, ELSE, END} 
+Follow(params) = {), ;,ELSE, END} 
+Follow(assignStmt) = {;, ELSE, END} 
+Follow(index) = {:=, ',', ;, ), THEN, ELSE, END, <, <=, >, >=, =, <>, +, -, OR, *, /, DIV, MOD, AND, ], ..} 
+Follow(ifStmt) = {;, ELSE, END} 
+Follow(elsePart) = {;, END} 
+Follow(whileStmt) = {;, END} 
+Follow(exprList) = {)} 
+Follow(expr) = {], ..,  THEN, DO, ',', ), ;, END, ELSE} 
+Follow(simpleExpr) = {], ..,  THEN, DO, ',', ), ;, END, ELSE, <, <=, >, >=, =, <>, +, -, OR} 
+Follow(term) = {], ..,  THEN, DO, ',', ), ;, END, ELSE, <, <=, >, >=, =, <>, +, -, OR, *, /, DIV, MOD, AND}
+ Follow(factor) = {], ..,  THEN, DO, ',', ), ;, END, ELSE, <, <=, >, >=, =, <>, +, -, OR, *, /, DIV, MOD, AND}
+##############################################################################

@@ -1,0 +1,160 @@
+.data
+
+a:		.word 0
+i:		.word 0
+b:		.word 0
+x:		.space 800
+b2:		.byte 0
+b1:		.byte 0
+
+.text
+.global main
+
+main:
+li	$t0, #0
+sw	$t0, b1
+li	$t0, #0
+sw	$t0, b2
+lw	$t0, b2
+not	$t0 $t0
+sw	$t0, b2
+li	$t0, #48.000000
+sw	$t0, a
+li	$t0, #84.000000
+sw	$t0, b
+li	$t0, #-24.000000
+sw	$t0, a
+lw	$t0, a
+li	$t1 #-1
+mult	$t0, $t0, $t1
+sw	$t0, a
+lw	$t0, a
+# push t0 to stack
+addi	$sp, $sp, -4
+sw	$t0, 0($sp)
+li	$t0, #16.000000
+# pop from stack to t1
+lw	$t1, 0($sp)
+addi	$sp, $sp, 4
+add	$t0, $t0, $t1
+# push t0 to stack
+addi	$sp, $sp, -4
+sw	$t0, 0($sp)
+li	$t0, #2.000000
+# push t0 to stack
+addi	$sp, $sp, -4
+sw	$t0, 0($sp)
+li	$t0, #1.000000
+# pop from stack to t1
+lw	$t1, 0($sp)
+addi	$sp, $sp, 4
+div	$t0, $t1
+mflo	$t0
+# pop from stack to t1
+lw	$t1, 0($sp)
+addi	$sp, $sp, 4
+mul	$t0, $t0, $t1
+sw	$t0, b
+lw	$t0, b
+# push t0 to stack
+addi	$sp, $sp, -4
+sw	$t0, 0($sp)
+li	$t0, #10.000000
+# pop from stack to t1
+lw	$t1, 0($sp)
+addi	$sp, $sp, 4
+add	$t0, $t0, $t1
+sw	$t0, b
+li	$t0, #1.000000
+sw	$t0, a
+li	$t0, #2.000000
+sw	$t0, i
+lw	$t0, i
+# push t0 to stack
+addi	$sp, $sp, -4
+sw	$t0, 0($sp)
+lw	$t0, b
+# pop from stack to t1
+lw	$t1, 0($sp)
+addi	$sp, $sp, 4
+sle	$t0, $t1, $t0
+L1:
+beqz	$t0, L2
+lw	$t0, b1
+# push t0 to stack
+addi	$sp, $sp, -4
+sw	$t0, 0($sp)
+lw	$t0, b2
+# pop from stack to t1
+lw	$t1, 0($sp)
+addi	$sp, $sp, 4
+or	$t0, $t1, $t0
+beqz	$t0, L1
+lw	$t0, a
+# push t0 to stack
+addi	$sp, $sp, -4
+sw	$t0, 0($sp)
+li	$t0, #1.000000
+# pop from stack to t1
+lw	$t1, 0($sp)
+addi	$sp, $sp, 4
+add	$t0, $t0, $t1
+sw	$t0, a
+j	L2
+L1:
+L2:
+lw	$t0, i
+# push t0 to stack
+addi	$sp, $sp, -4
+sw	$t0, 0($sp)
+li	$t0, #1.000000
+# pop from stack to t1
+lw	$t1, 0($sp)
+addi	$sp, $sp, 4
+add	$t0, $t0, $t1
+sw	$t0, i
+j	L1
+L2:
+li	$t0, #1.000000
+sw	$t0, i
+lw	$t0, i
+# push t0 to stack
+addi	$sp, $sp, -4
+sw	$t0, 0($sp)
+lw	$t0, b
+# pop from stack to t1
+lw	$t1, 0($sp)
+addi	$sp, $sp, 4
+slt	$t0, $t1, $t0
+L1:
+beqz	$t0, L2
+la	$gp, x
+lw	$t0, i
+li	$t1, #1
+sub	$t0, $t0, $t1
+li	$t1, #8
+mul	$t0, $t0, $t1
+add	$gp, $gp, $t0
+lw	$f0, 0($gp)
+sw	$f0, x
+lw	$t0, i
+# push t0 to stack
+addi	$sp, $sp, -4
+sw	$t0, 0($sp)
+li	$t0, #1.000000
+# pop from stack to t1
+lw	$t1, 0($sp)
+addi	$sp, $sp, 4
+add	$t0, $t0, $t1
+sw	$t0, i
+la	$gp, x
+lw	$t0, i
+li	$t1, #1
+sub	$t0, $t0, $t1
+li	$t1, #8
+mul	$t0, $t0, $t1
+add	$gp, $gp, $t0
+lw	$f0, 0($gp)
+sw	$f0, a
+j	L1
+L2:

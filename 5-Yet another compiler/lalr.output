@@ -1,0 +1,1529 @@
+Terminals unused in grammar
+
+    DOLLAR
+
+
+State 115 conflicts: 1 shift/reduce
+
+
+Grammar
+
+    0 $accept: start $end
+
+    1 start: PROGRAM IDENTIFIER SEMICOLON varDec subProgList compStmt DOT
+
+    2 varDec: ε
+    3       | VAR varDecList
+
+    4 varDecList: varDecList identListType SEMICOLON
+    5           | identListType SEMICOLON
+
+    6 subProgList: ε
+    7            | subProgList subProgHead varDec compStmt SEMICOLON
+
+    8 subProgHead: FUNCTION IDENTIFIER args COLON type SEMICOLON
+    9            | PROCEDURE IDENTIFIER args SEMICOLON
+
+   10 identListType: identList COLON type
+
+   11 identList: identList COMMA IDENTIFIER
+   12          | IDENTIFIER
+
+   13 type: simpleType
+   14     | ARRAY SQUARE_BRACKETS_OPEN NUMBER DOUBLE_DOTS NUMBER SQUARE_BRACKETS_CLOSE OF simpleType
+
+   15 simpleType: INTEGER
+   16           | REAL
+   17           | BOOLEAN
+
+   18 args: ε
+   19     | BRACKETS_OPEN parList BRACKETS_CLOSE
+
+   20 parList: parList SEMICOLON identListType
+   21        | identListType
+
+   22 compStmt: BEGIN_TOKEN stmtList END
+
+   23 stmtList: stmtList SEMICOLON statement
+   24         | statement
+
+   25 statement: IDENTIFIER procCallOrAssign
+   26          | compStmt
+   27          | ifStmt
+   28          | whileStmt
+
+   29 procCallOrAssign: ε
+   30                 | params
+   31                 | assignStmt
+
+   32 params: BRACKETS_OPEN exprList BRACKETS_CLOSE
+
+   33 exprList: ε
+   34         | exprList COMMA expr
+   35         | expr
+
+   36 assignStmt: ASSIGNMENT expr
+   37           | index ASSIGNMENT expr
+
+   38 index: SQUARE_BRACKETS_OPEN expr index2
+
+   39 index2: SQUARE_BRACKETS_CLOSE
+   40       | DOUBLE_DOTS expr SQUARE_BRACKETS_CLOSE
+
+   41 ifStmt: IF expr THEN statement elsePart
+
+   42 elsePart: ε
+   43         | ELSE statement
+
+   44 whileStmt: WHILE expr DO statement
+
+   45 expr: simpleExpr expr2
+
+   46 expr2: ε
+   47      | relOp simpleExpr
+
+   48 simpleExpr: simpleExpr addOp term
+   49           | term
+
+   50 term: term mulOp factor
+   51     | factor
+
+   52 factor: NUMBER
+   53       | BOOL_FALSE
+   54       | BOOL_TRUE
+   55       | IDENTIFIER factor2
+   56       | NOT factor
+   57       | MINUS factor
+   58       | BRACKETS_OPEN expr BRACKETS_CLOSE
+
+   59 factor2: ε
+   60        | index
+   61        | params
+
+   62 relOp: LESS
+   63      | LESS_EQUAL
+   64      | GREATER
+   65      | GREATER_EQUAL
+   66      | EQUAL
+   67      | NOT_EQUAL
+
+   68 addOp: PLUS
+   69      | MINUS
+   70      | OR
+
+   71 mulOp: MULTIPLICATION
+   72      | DIVISION
+   73      | DIV
+   74      | MOD
+   75      | AND
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    PROGRAM (258) 1
+    VAR (259) 3
+    INTEGER (260) 15
+    ARRAY (261) 14
+    OF (262) 14
+    REAL (263) 16
+    FUNCTION (264) 8
+    BEGIN_TOKEN (265) 22
+    WHILE (266) 44
+    DO (267) 44
+    IF (268) 41
+    THEN (269) 41
+    ELSE (270) 43
+    END (271) 22
+    BOOLEAN (272) 17
+    BOOL_FALSE (273) 53
+    BOOL_TRUE (274) 54
+    PROCEDURE (275) 9
+    DIV (276) 73
+    GREATER (277) 64
+    LESS (278) 62
+    LESS_EQUAL (279) 63
+    GREATER_EQUAL (280) 65
+    NOT_EQUAL (281) 67
+    EQUAL (282) 66
+    PLUS (283) 68
+    MINUS (284) 57 69
+    DIVISION (285) 72
+    MULTIPLICATION (286) 71
+    SQUARE_BRACKETS_OPEN (287) 14 38
+    SQUARE_BRACKETS_CLOSE (288) 14 39 40
+    BRACKETS_OPEN (289) 19 32 58
+    BRACKETS_CLOSE (290) 19 32 58
+    DOT (291) 1
+    COLON (292) 8 10
+    ASSIGNMENT (293) 36 37
+    SEMICOLON (294) 1 4 5 7 8 9 20 23
+    COMMA (295) 11 34
+    DOUBLE_DOTS (296) 14 40
+    IDENTIFIER (297) 1 8 9 11 12 25 55
+    NUMBER (298) 14 52
+    NOT (299) 56
+    MOD (300) 74
+    AND (301) 75
+    OR (302) 70
+    DOLLAR (303)
+
+
+Nonterminals, with rules where they appear
+
+    $accept (49)
+        on left: 0
+    start (50)
+        on left: 1
+        on right: 0
+    varDec (51)
+        on left: 2 3
+        on right: 1 7
+    varDecList (52)
+        on left: 4 5
+        on right: 3 4
+    subProgList (53)
+        on left: 6 7
+        on right: 1 7
+    subProgHead (54)
+        on left: 8 9
+        on right: 7
+    identListType (55)
+        on left: 10
+        on right: 4 5 20 21
+    identList (56)
+        on left: 11 12
+        on right: 10 11
+    type (57)
+        on left: 13 14
+        on right: 8 10
+    simpleType (58)
+        on left: 15 16 17
+        on right: 13 14
+    args (59)
+        on left: 18 19
+        on right: 8 9
+    parList (60)
+        on left: 20 21
+        on right: 19 20
+    compStmt (61)
+        on left: 22
+        on right: 1 7 26
+    stmtList (62)
+        on left: 23 24
+        on right: 22 23
+    statement (63)
+        on left: 25 26 27 28
+        on right: 23 24 41 43 44
+    procCallOrAssign (64)
+        on left: 29 30 31
+        on right: 25
+    params (65)
+        on left: 32
+        on right: 30 61
+    exprList (66)
+        on left: 33 34 35
+        on right: 32 34
+    assignStmt (67)
+        on left: 36 37
+        on right: 31
+    index (68)
+        on left: 38
+        on right: 37 60
+    index2 (69)
+        on left: 39 40
+        on right: 38
+    ifStmt (70)
+        on left: 41
+        on right: 27
+    elsePart (71)
+        on left: 42 43
+        on right: 41
+    whileStmt (72)
+        on left: 44
+        on right: 28
+    expr (73)
+        on left: 45
+        on right: 34 35 36 37 38 40 41 44 58
+    expr2 (74)
+        on left: 46 47
+        on right: 45
+    simpleExpr (75)
+        on left: 48 49
+        on right: 45 47 48
+    term (76)
+        on left: 50 51
+        on right: 48 49 50
+    factor (77)
+        on left: 52 53 54 55 56 57 58
+        on right: 50 51 56 57
+    factor2 (78)
+        on left: 59 60 61
+        on right: 55
+    relOp (79)
+        on left: 62 63 64 65 66 67
+        on right: 47
+    addOp (80)
+        on left: 68 69 70
+        on right: 48
+    mulOp (81)
+        on left: 71 72 73 74 75
+        on right: 50
+
+
+State 0
+
+    0 $accept: • start $end
+
+    PROGRAM  shift, and go to state 1
+
+    start  go to state 2
+
+
+State 1
+
+    1 start: PROGRAM • IDENTIFIER SEMICOLON varDec subProgList compStmt DOT
+
+    IDENTIFIER  shift, and go to state 3
+
+
+State 2
+
+    0 $accept: start • $end
+
+    $end  shift, and go to state 4
+
+
+State 3
+
+    1 start: PROGRAM IDENTIFIER • SEMICOLON varDec subProgList compStmt DOT
+
+    SEMICOLON  shift, and go to state 5
+
+
+State 4
+
+    0 $accept: start $end •
+
+    $default  accept
+
+
+State 5
+
+    1 start: PROGRAM IDENTIFIER SEMICOLON • varDec subProgList compStmt DOT
+
+    VAR  shift, and go to state 6
+
+    $default  reduce using rule 2 (varDec)
+
+    varDec  go to state 7
+
+
+State 6
+
+    3 varDec: VAR • varDecList
+
+    IDENTIFIER  shift, and go to state 8
+
+    varDecList     go to state 9
+    identListType  go to state 10
+    identList      go to state 11
+
+
+State 7
+
+    1 start: PROGRAM IDENTIFIER SEMICOLON varDec • subProgList compStmt DOT
+
+    $default  reduce using rule 6 (subProgList)
+
+    subProgList  go to state 12
+
+
+State 8
+
+   12 identList: IDENTIFIER •
+
+    $default  reduce using rule 12 (identList)
+
+
+State 9
+
+    3 varDec: VAR varDecList •
+    4 varDecList: varDecList • identListType SEMICOLON
+
+    IDENTIFIER  shift, and go to state 8
+
+    $default  reduce using rule 3 (varDec)
+
+    identListType  go to state 13
+    identList      go to state 11
+
+
+State 10
+
+    5 varDecList: identListType • SEMICOLON
+
+    SEMICOLON  shift, and go to state 14
+
+
+State 11
+
+   10 identListType: identList • COLON type
+   11 identList: identList • COMMA IDENTIFIER
+
+    COLON  shift, and go to state 15
+    COMMA  shift, and go to state 16
+
+
+State 12
+
+    1 start: PROGRAM IDENTIFIER SEMICOLON varDec subProgList • compStmt DOT
+    7 subProgList: subProgList • subProgHead varDec compStmt SEMICOLON
+
+    FUNCTION     shift, and go to state 17
+    BEGIN_TOKEN  shift, and go to state 18
+    PROCEDURE    shift, and go to state 19
+
+    subProgHead  go to state 20
+    compStmt     go to state 21
+
+
+State 13
+
+    4 varDecList: varDecList identListType • SEMICOLON
+
+    SEMICOLON  shift, and go to state 22
+
+
+State 14
+
+    5 varDecList: identListType SEMICOLON •
+
+    $default  reduce using rule 5 (varDecList)
+
+
+State 15
+
+   10 identListType: identList COLON • type
+
+    INTEGER  shift, and go to state 23
+    ARRAY    shift, and go to state 24
+    REAL     shift, and go to state 25
+    BOOLEAN  shift, and go to state 26
+
+    type        go to state 27
+    simpleType  go to state 28
+
+
+State 16
+
+   11 identList: identList COMMA • IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 29
+
+
+State 17
+
+    8 subProgHead: FUNCTION • IDENTIFIER args COLON type SEMICOLON
+
+    IDENTIFIER  shift, and go to state 30
+
+
+State 18
+
+   22 compStmt: BEGIN_TOKEN • stmtList END
+
+    BEGIN_TOKEN  shift, and go to state 18
+    WHILE        shift, and go to state 31
+    IF           shift, and go to state 32
+    IDENTIFIER   shift, and go to state 33
+
+    compStmt   go to state 34
+    stmtList   go to state 35
+    statement  go to state 36
+    ifStmt     go to state 37
+    whileStmt  go to state 38
+
+
+State 19
+
+    9 subProgHead: PROCEDURE • IDENTIFIER args SEMICOLON
+
+    IDENTIFIER  shift, and go to state 39
+
+
+State 20
+
+    7 subProgList: subProgList subProgHead • varDec compStmt SEMICOLON
+
+    VAR  shift, and go to state 6
+
+    $default  reduce using rule 2 (varDec)
+
+    varDec  go to state 40
+
+
+State 21
+
+    1 start: PROGRAM IDENTIFIER SEMICOLON varDec subProgList compStmt • DOT
+
+    DOT  shift, and go to state 41
+
+
+State 22
+
+    4 varDecList: varDecList identListType SEMICOLON •
+
+    $default  reduce using rule 4 (varDecList)
+
+
+State 23
+
+   15 simpleType: INTEGER •
+
+    $default  reduce using rule 15 (simpleType)
+
+
+State 24
+
+   14 type: ARRAY • SQUARE_BRACKETS_OPEN NUMBER DOUBLE_DOTS NUMBER SQUARE_BRACKETS_CLOSE OF simpleType
+
+    SQUARE_BRACKETS_OPEN  shift, and go to state 42
+
+
+State 25
+
+   16 simpleType: REAL •
+
+    $default  reduce using rule 16 (simpleType)
+
+
+State 26
+
+   17 simpleType: BOOLEAN •
+
+    $default  reduce using rule 17 (simpleType)
+
+
+State 27
+
+   10 identListType: identList COLON type •
+
+    $default  reduce using rule 10 (identListType)
+
+
+State 28
+
+   13 type: simpleType •
+
+    $default  reduce using rule 13 (type)
+
+
+State 29
+
+   11 identList: identList COMMA IDENTIFIER •
+
+    $default  reduce using rule 11 (identList)
+
+
+State 30
+
+    8 subProgHead: FUNCTION IDENTIFIER • args COLON type SEMICOLON
+
+    BRACKETS_OPEN  shift, and go to state 43
+
+    $default  reduce using rule 18 (args)
+
+    args  go to state 44
+
+
+State 31
+
+   44 whileStmt: WHILE • expr DO statement
+
+    BOOL_FALSE     shift, and go to state 45
+    BOOL_TRUE      shift, and go to state 46
+    MINUS          shift, and go to state 47
+    BRACKETS_OPEN  shift, and go to state 48
+    IDENTIFIER     shift, and go to state 49
+    NUMBER         shift, and go to state 50
+    NOT            shift, and go to state 51
+
+    expr        go to state 52
+    simpleExpr  go to state 53
+    term        go to state 54
+    factor      go to state 55
+
+
+State 32
+
+   41 ifStmt: IF • expr THEN statement elsePart
+
+    BOOL_FALSE     shift, and go to state 45
+    BOOL_TRUE      shift, and go to state 46
+    MINUS          shift, and go to state 47
+    BRACKETS_OPEN  shift, and go to state 48
+    IDENTIFIER     shift, and go to state 49
+    NUMBER         shift, and go to state 50
+    NOT            shift, and go to state 51
+
+    expr        go to state 56
+    simpleExpr  go to state 53
+    term        go to state 54
+    factor      go to state 55
+
+
+State 33
+
+   25 statement: IDENTIFIER • procCallOrAssign
+
+    SQUARE_BRACKETS_OPEN  shift, and go to state 57
+    BRACKETS_OPEN         shift, and go to state 58
+    ASSIGNMENT            shift, and go to state 59
+
+    $default  reduce using rule 29 (procCallOrAssign)
+
+    procCallOrAssign  go to state 60
+    params            go to state 61
+    assignStmt        go to state 62
+    index             go to state 63
+
+
+State 34
+
+   26 statement: compStmt •
+
+    $default  reduce using rule 26 (statement)
+
+
+State 35
+
+   22 compStmt: BEGIN_TOKEN stmtList • END
+   23 stmtList: stmtList • SEMICOLON statement
+
+    END        shift, and go to state 64
+    SEMICOLON  shift, and go to state 65
+
+
+State 36
+
+   24 stmtList: statement •
+
+    $default  reduce using rule 24 (stmtList)
+
+
+State 37
+
+   27 statement: ifStmt •
+
+    $default  reduce using rule 27 (statement)
+
+
+State 38
+
+   28 statement: whileStmt •
+
+    $default  reduce using rule 28 (statement)
+
+
+State 39
+
+    9 subProgHead: PROCEDURE IDENTIFIER • args SEMICOLON
+
+    BRACKETS_OPEN  shift, and go to state 43
+
+    $default  reduce using rule 18 (args)
+
+    args  go to state 66
+
+
+State 40
+
+    7 subProgList: subProgList subProgHead varDec • compStmt SEMICOLON
+
+    BEGIN_TOKEN  shift, and go to state 18
+
+    compStmt  go to state 67
+
+
+State 41
+
+    1 start: PROGRAM IDENTIFIER SEMICOLON varDec subProgList compStmt DOT •
+
+    $default  reduce using rule 1 (start)
+
+
+State 42
+
+   14 type: ARRAY SQUARE_BRACKETS_OPEN • NUMBER DOUBLE_DOTS NUMBER SQUARE_BRACKETS_CLOSE OF simpleType
+
+    NUMBER  shift, and go to state 68
+
+
+State 43
+
+   19 args: BRACKETS_OPEN • parList BRACKETS_CLOSE
+
+    IDENTIFIER  shift, and go to state 8
+
+    identListType  go to state 69
+    identList      go to state 11
+    parList        go to state 70
+
+
+State 44
+
+    8 subProgHead: FUNCTION IDENTIFIER args • COLON type SEMICOLON
+
+    COLON  shift, and go to state 71
+
+
+State 45
+
+   53 factor: BOOL_FALSE •
+
+    $default  reduce using rule 53 (factor)
+
+
+State 46
+
+   54 factor: BOOL_TRUE •
+
+    $default  reduce using rule 54 (factor)
+
+
+State 47
+
+   57 factor: MINUS • factor
+
+    BOOL_FALSE     shift, and go to state 45
+    BOOL_TRUE      shift, and go to state 46
+    MINUS          shift, and go to state 47
+    BRACKETS_OPEN  shift, and go to state 48
+    IDENTIFIER     shift, and go to state 49
+    NUMBER         shift, and go to state 50
+    NOT            shift, and go to state 51
+
+    factor  go to state 72
+
+
+State 48
+
+   58 factor: BRACKETS_OPEN • expr BRACKETS_CLOSE
+
+    BOOL_FALSE     shift, and go to state 45
+    BOOL_TRUE      shift, and go to state 46
+    MINUS          shift, and go to state 47
+    BRACKETS_OPEN  shift, and go to state 48
+    IDENTIFIER     shift, and go to state 49
+    NUMBER         shift, and go to state 50
+    NOT            shift, and go to state 51
+
+    expr        go to state 73
+    simpleExpr  go to state 53
+    term        go to state 54
+    factor      go to state 55
+
+
+State 49
+
+   55 factor: IDENTIFIER • factor2
+
+    SQUARE_BRACKETS_OPEN  shift, and go to state 57
+    BRACKETS_OPEN         shift, and go to state 58
+
+    $default  reduce using rule 59 (factor2)
+
+    params   go to state 74
+    index    go to state 75
+    factor2  go to state 76
+
+
+State 50
+
+   52 factor: NUMBER •
+
+    $default  reduce using rule 52 (factor)
+
+
+State 51
+
+   56 factor: NOT • factor
+
+    BOOL_FALSE     shift, and go to state 45
+    BOOL_TRUE      shift, and go to state 46
+    MINUS          shift, and go to state 47
+    BRACKETS_OPEN  shift, and go to state 48
+    IDENTIFIER     shift, and go to state 49
+    NUMBER         shift, and go to state 50
+    NOT            shift, and go to state 51
+
+    factor  go to state 77
+
+
+State 52
+
+   44 whileStmt: WHILE expr • DO statement
+
+    DO  shift, and go to state 78
+
+
+State 53
+
+   45 expr: simpleExpr • expr2
+   48 simpleExpr: simpleExpr • addOp term
+
+    GREATER        shift, and go to state 79
+    LESS           shift, and go to state 80
+    LESS_EQUAL     shift, and go to state 81
+    GREATER_EQUAL  shift, and go to state 82
+    NOT_EQUAL      shift, and go to state 83
+    EQUAL          shift, and go to state 84
+    PLUS           shift, and go to state 85
+    MINUS          shift, and go to state 86
+    OR             shift, and go to state 87
+
+    $default  reduce using rule 46 (expr2)
+
+    expr2  go to state 88
+    relOp  go to state 89
+    addOp  go to state 90
+
+
+State 54
+
+   49 simpleExpr: term •
+   50 term: term • mulOp factor
+
+    DIV             shift, and go to state 91
+    DIVISION        shift, and go to state 92
+    MULTIPLICATION  shift, and go to state 93
+    MOD             shift, and go to state 94
+    AND             shift, and go to state 95
+
+    $default  reduce using rule 49 (simpleExpr)
+
+    mulOp  go to state 96
+
+
+State 55
+
+   51 term: factor •
+
+    $default  reduce using rule 51 (term)
+
+
+State 56
+
+   41 ifStmt: IF expr • THEN statement elsePart
+
+    THEN  shift, and go to state 97
+
+
+State 57
+
+   38 index: SQUARE_BRACKETS_OPEN • expr index2
+
+    BOOL_FALSE     shift, and go to state 45
+    BOOL_TRUE      shift, and go to state 46
+    MINUS          shift, and go to state 47
+    BRACKETS_OPEN  shift, and go to state 48
+    IDENTIFIER     shift, and go to state 49
+    NUMBER         shift, and go to state 50
+    NOT            shift, and go to state 51
+
+    expr        go to state 98
+    simpleExpr  go to state 53
+    term        go to state 54
+    factor      go to state 55
+
+
+State 58
+
+   32 params: BRACKETS_OPEN • exprList BRACKETS_CLOSE
+
+    BOOL_FALSE     shift, and go to state 45
+    BOOL_TRUE      shift, and go to state 46
+    MINUS          shift, and go to state 47
+    BRACKETS_OPEN  shift, and go to state 48
+    IDENTIFIER     shift, and go to state 49
+    NUMBER         shift, and go to state 50
+    NOT            shift, and go to state 51
+
+    $default  reduce using rule 33 (exprList)
+
+    exprList    go to state 99
+    expr        go to state 100
+    simpleExpr  go to state 53
+    term        go to state 54
+    factor      go to state 55
+
+
+State 59
+
+   36 assignStmt: ASSIGNMENT • expr
+
+    BOOL_FALSE     shift, and go to state 45
+    BOOL_TRUE      shift, and go to state 46
+    MINUS          shift, and go to state 47
+    BRACKETS_OPEN  shift, and go to state 48
+    IDENTIFIER     shift, and go to state 49
+    NUMBER         shift, and go to state 50
+    NOT            shift, and go to state 51
+
+    expr        go to state 101
+    simpleExpr  go to state 53
+    term        go to state 54
+    factor      go to state 55
+
+
+State 60
+
+   25 statement: IDENTIFIER procCallOrAssign •
+
+    $default  reduce using rule 25 (statement)
+
+
+State 61
+
+   30 procCallOrAssign: params •
+
+    $default  reduce using rule 30 (procCallOrAssign)
+
+
+State 62
+
+   31 procCallOrAssign: assignStmt •
+
+    $default  reduce using rule 31 (procCallOrAssign)
+
+
+State 63
+
+   37 assignStmt: index • ASSIGNMENT expr
+
+    ASSIGNMENT  shift, and go to state 102
+
+
+State 64
+
+   22 compStmt: BEGIN_TOKEN stmtList END •
+
+    $default  reduce using rule 22 (compStmt)
+
+
+State 65
+
+   23 stmtList: stmtList SEMICOLON • statement
+
+    BEGIN_TOKEN  shift, and go to state 18
+    WHILE        shift, and go to state 31
+    IF           shift, and go to state 32
+    IDENTIFIER   shift, and go to state 33
+
+    compStmt   go to state 34
+    statement  go to state 103
+    ifStmt     go to state 37
+    whileStmt  go to state 38
+
+
+State 66
+
+    9 subProgHead: PROCEDURE IDENTIFIER args • SEMICOLON
+
+    SEMICOLON  shift, and go to state 104
+
+
+State 67
+
+    7 subProgList: subProgList subProgHead varDec compStmt • SEMICOLON
+
+    SEMICOLON  shift, and go to state 105
+
+
+State 68
+
+   14 type: ARRAY SQUARE_BRACKETS_OPEN NUMBER • DOUBLE_DOTS NUMBER SQUARE_BRACKETS_CLOSE OF simpleType
+
+    DOUBLE_DOTS  shift, and go to state 106
+
+
+State 69
+
+   21 parList: identListType •
+
+    $default  reduce using rule 21 (parList)
+
+
+State 70
+
+   19 args: BRACKETS_OPEN parList • BRACKETS_CLOSE
+   20 parList: parList • SEMICOLON identListType
+
+    BRACKETS_CLOSE  shift, and go to state 107
+    SEMICOLON       shift, and go to state 108
+
+
+State 71
+
+    8 subProgHead: FUNCTION IDENTIFIER args COLON • type SEMICOLON
+
+    INTEGER  shift, and go to state 23
+    ARRAY    shift, and go to state 24
+    REAL     shift, and go to state 25
+    BOOLEAN  shift, and go to state 26
+
+    type        go to state 109
+    simpleType  go to state 28
+
+
+State 72
+
+   57 factor: MINUS factor •
+
+    $default  reduce using rule 57 (factor)
+
+
+State 73
+
+   58 factor: BRACKETS_OPEN expr • BRACKETS_CLOSE
+
+    BRACKETS_CLOSE  shift, and go to state 110
+
+
+State 74
+
+   61 factor2: params •
+
+    $default  reduce using rule 61 (factor2)
+
+
+State 75
+
+   60 factor2: index •
+
+    $default  reduce using rule 60 (factor2)
+
+
+State 76
+
+   55 factor: IDENTIFIER factor2 •
+
+    $default  reduce using rule 55 (factor)
+
+
+State 77
+
+   56 factor: NOT factor •
+
+    $default  reduce using rule 56 (factor)
+
+
+State 78
+
+   44 whileStmt: WHILE expr DO • statement
+
+    BEGIN_TOKEN  shift, and go to state 18
+    WHILE        shift, and go to state 31
+    IF           shift, and go to state 32
+    IDENTIFIER   shift, and go to state 33
+
+    compStmt   go to state 34
+    statement  go to state 111
+    ifStmt     go to state 37
+    whileStmt  go to state 38
+
+
+State 79
+
+   64 relOp: GREATER •
+
+    $default  reduce using rule 64 (relOp)
+
+
+State 80
+
+   62 relOp: LESS •
+
+    $default  reduce using rule 62 (relOp)
+
+
+State 81
+
+   63 relOp: LESS_EQUAL •
+
+    $default  reduce using rule 63 (relOp)
+
+
+State 82
+
+   65 relOp: GREATER_EQUAL •
+
+    $default  reduce using rule 65 (relOp)
+
+
+State 83
+
+   67 relOp: NOT_EQUAL •
+
+    $default  reduce using rule 67 (relOp)
+
+
+State 84
+
+   66 relOp: EQUAL •
+
+    $default  reduce using rule 66 (relOp)
+
+
+State 85
+
+   68 addOp: PLUS •
+
+    $default  reduce using rule 68 (addOp)
+
+
+State 86
+
+   69 addOp: MINUS •
+
+    $default  reduce using rule 69 (addOp)
+
+
+State 87
+
+   70 addOp: OR •
+
+    $default  reduce using rule 70 (addOp)
+
+
+State 88
+
+   45 expr: simpleExpr expr2 •
+
+    $default  reduce using rule 45 (expr)
+
+
+State 89
+
+   47 expr2: relOp • simpleExpr
+
+    BOOL_FALSE     shift, and go to state 45
+    BOOL_TRUE      shift, and go to state 46
+    MINUS          shift, and go to state 47
+    BRACKETS_OPEN  shift, and go to state 48
+    IDENTIFIER     shift, and go to state 49
+    NUMBER         shift, and go to state 50
+    NOT            shift, and go to state 51
+
+    simpleExpr  go to state 112
+    term        go to state 54
+    factor      go to state 55
+
+
+State 90
+
+   48 simpleExpr: simpleExpr addOp • term
+
+    BOOL_FALSE     shift, and go to state 45
+    BOOL_TRUE      shift, and go to state 46
+    MINUS          shift, and go to state 47
+    BRACKETS_OPEN  shift, and go to state 48
+    IDENTIFIER     shift, and go to state 49
+    NUMBER         shift, and go to state 50
+    NOT            shift, and go to state 51
+
+    term    go to state 113
+    factor  go to state 55
+
+
+State 91
+
+   73 mulOp: DIV •
+
+    $default  reduce using rule 73 (mulOp)
+
+
+State 92
+
+   72 mulOp: DIVISION •
+
+    $default  reduce using rule 72 (mulOp)
+
+
+State 93
+
+   71 mulOp: MULTIPLICATION •
+
+    $default  reduce using rule 71 (mulOp)
+
+
+State 94
+
+   74 mulOp: MOD •
+
+    $default  reduce using rule 74 (mulOp)
+
+
+State 95
+
+   75 mulOp: AND •
+
+    $default  reduce using rule 75 (mulOp)
+
+
+State 96
+
+   50 term: term mulOp • factor
+
+    BOOL_FALSE     shift, and go to state 45
+    BOOL_TRUE      shift, and go to state 46
+    MINUS          shift, and go to state 47
+    BRACKETS_OPEN  shift, and go to state 48
+    IDENTIFIER     shift, and go to state 49
+    NUMBER         shift, and go to state 50
+    NOT            shift, and go to state 51
+
+    factor  go to state 114
+
+
+State 97
+
+   41 ifStmt: IF expr THEN • statement elsePart
+
+    BEGIN_TOKEN  shift, and go to state 18
+    WHILE        shift, and go to state 31
+    IF           shift, and go to state 32
+    IDENTIFIER   shift, and go to state 33
+
+    compStmt   go to state 34
+    statement  go to state 115
+    ifStmt     go to state 37
+    whileStmt  go to state 38
+
+
+State 98
+
+   38 index: SQUARE_BRACKETS_OPEN expr • index2
+
+    SQUARE_BRACKETS_CLOSE  shift, and go to state 116
+    DOUBLE_DOTS            shift, and go to state 117
+
+    index2  go to state 118
+
+
+State 99
+
+   32 params: BRACKETS_OPEN exprList • BRACKETS_CLOSE
+   34 exprList: exprList • COMMA expr
+
+    BRACKETS_CLOSE  shift, and go to state 119
+    COMMA           shift, and go to state 120
+
+
+State 100
+
+   35 exprList: expr •
+
+    $default  reduce using rule 35 (exprList)
+
+
+State 101
+
+   36 assignStmt: ASSIGNMENT expr •
+
+    $default  reduce using rule 36 (assignStmt)
+
+
+State 102
+
+   37 assignStmt: index ASSIGNMENT • expr
+
+    BOOL_FALSE     shift, and go to state 45
+    BOOL_TRUE      shift, and go to state 46
+    MINUS          shift, and go to state 47
+    BRACKETS_OPEN  shift, and go to state 48
+    IDENTIFIER     shift, and go to state 49
+    NUMBER         shift, and go to state 50
+    NOT            shift, and go to state 51
+
+    expr        go to state 121
+    simpleExpr  go to state 53
+    term        go to state 54
+    factor      go to state 55
+
+
+State 103
+
+   23 stmtList: stmtList SEMICOLON statement •
+
+    $default  reduce using rule 23 (stmtList)
+
+
+State 104
+
+    9 subProgHead: PROCEDURE IDENTIFIER args SEMICOLON •
+
+    $default  reduce using rule 9 (subProgHead)
+
+
+State 105
+
+    7 subProgList: subProgList subProgHead varDec compStmt SEMICOLON •
+
+    $default  reduce using rule 7 (subProgList)
+
+
+State 106
+
+   14 type: ARRAY SQUARE_BRACKETS_OPEN NUMBER DOUBLE_DOTS • NUMBER SQUARE_BRACKETS_CLOSE OF simpleType
+
+    NUMBER  shift, and go to state 122
+
+
+State 107
+
+   19 args: BRACKETS_OPEN parList BRACKETS_CLOSE •
+
+    $default  reduce using rule 19 (args)
+
+
+State 108
+
+   20 parList: parList SEMICOLON • identListType
+
+    IDENTIFIER  shift, and go to state 8
+
+    identListType  go to state 123
+    identList      go to state 11
+
+
+State 109
+
+    8 subProgHead: FUNCTION IDENTIFIER args COLON type • SEMICOLON
+
+    SEMICOLON  shift, and go to state 124
+
+
+State 110
+
+   58 factor: BRACKETS_OPEN expr BRACKETS_CLOSE •
+
+    $default  reduce using rule 58 (factor)
+
+
+State 111
+
+   44 whileStmt: WHILE expr DO statement •
+
+    $default  reduce using rule 44 (whileStmt)
+
+
+State 112
+
+   47 expr2: relOp simpleExpr •
+   48 simpleExpr: simpleExpr • addOp term
+
+    PLUS   shift, and go to state 85
+    MINUS  shift, and go to state 86
+    OR     shift, and go to state 87
+
+    $default  reduce using rule 47 (expr2)
+
+    addOp  go to state 90
+
+
+State 113
+
+   48 simpleExpr: simpleExpr addOp term •
+   50 term: term • mulOp factor
+
+    DIV             shift, and go to state 91
+    DIVISION        shift, and go to state 92
+    MULTIPLICATION  shift, and go to state 93
+    MOD             shift, and go to state 94
+    AND             shift, and go to state 95
+
+    $default  reduce using rule 48 (simpleExpr)
+
+    mulOp  go to state 96
+
+
+State 114
+
+   50 term: term mulOp factor •
+
+    $default  reduce using rule 50 (term)
+
+
+State 115
+
+   41 ifStmt: IF expr THEN statement • elsePart
+
+    ELSE  shift, and go to state 125
+
+    ELSE      [reduce using rule 42 (elsePart)]
+    $default  reduce using rule 42 (elsePart)
+
+    elsePart  go to state 126
+
+
+State 116
+
+   39 index2: SQUARE_BRACKETS_CLOSE •
+
+    $default  reduce using rule 39 (index2)
+
+
+State 117
+
+   40 index2: DOUBLE_DOTS • expr SQUARE_BRACKETS_CLOSE
+
+    BOOL_FALSE     shift, and go to state 45
+    BOOL_TRUE      shift, and go to state 46
+    MINUS          shift, and go to state 47
+    BRACKETS_OPEN  shift, and go to state 48
+    IDENTIFIER     shift, and go to state 49
+    NUMBER         shift, and go to state 50
+    NOT            shift, and go to state 51
+
+    expr        go to state 127
+    simpleExpr  go to state 53
+    term        go to state 54
+    factor      go to state 55
+
+
+State 118
+
+   38 index: SQUARE_BRACKETS_OPEN expr index2 •
+
+    $default  reduce using rule 38 (index)
+
+
+State 119
+
+   32 params: BRACKETS_OPEN exprList BRACKETS_CLOSE •
+
+    $default  reduce using rule 32 (params)
+
+
+State 120
+
+   34 exprList: exprList COMMA • expr
+
+    BOOL_FALSE     shift, and go to state 45
+    BOOL_TRUE      shift, and go to state 46
+    MINUS          shift, and go to state 47
+    BRACKETS_OPEN  shift, and go to state 48
+    IDENTIFIER     shift, and go to state 49
+    NUMBER         shift, and go to state 50
+    NOT            shift, and go to state 51
+
+    expr        go to state 128
+    simpleExpr  go to state 53
+    term        go to state 54
+    factor      go to state 55
+
+
+State 121
+
+   37 assignStmt: index ASSIGNMENT expr •
+
+    $default  reduce using rule 37 (assignStmt)
+
+
+State 122
+
+   14 type: ARRAY SQUARE_BRACKETS_OPEN NUMBER DOUBLE_DOTS NUMBER • SQUARE_BRACKETS_CLOSE OF simpleType
+
+    SQUARE_BRACKETS_CLOSE  shift, and go to state 129
+
+
+State 123
+
+   20 parList: parList SEMICOLON identListType •
+
+    $default  reduce using rule 20 (parList)
+
+
+State 124
+
+    8 subProgHead: FUNCTION IDENTIFIER args COLON type SEMICOLON •
+
+    $default  reduce using rule 8 (subProgHead)
+
+
+State 125
+
+   43 elsePart: ELSE • statement
+
+    BEGIN_TOKEN  shift, and go to state 18
+    WHILE        shift, and go to state 31
+    IF           shift, and go to state 32
+    IDENTIFIER   shift, and go to state 33
+
+    compStmt   go to state 34
+    statement  go to state 130
+    ifStmt     go to state 37
+    whileStmt  go to state 38
+
+
+State 126
+
+   41 ifStmt: IF expr THEN statement elsePart •
+
+    $default  reduce using rule 41 (ifStmt)
+
+
+State 127
+
+   40 index2: DOUBLE_DOTS expr • SQUARE_BRACKETS_CLOSE
+
+    SQUARE_BRACKETS_CLOSE  shift, and go to state 131
+
+
+State 128
+
+   34 exprList: exprList COMMA expr •
+
+    $default  reduce using rule 34 (exprList)
+
+
+State 129
+
+   14 type: ARRAY SQUARE_BRACKETS_OPEN NUMBER DOUBLE_DOTS NUMBER SQUARE_BRACKETS_CLOSE • OF simpleType
+
+    OF  shift, and go to state 132
+
+
+State 130
+
+   43 elsePart: ELSE statement •
+
+    $default  reduce using rule 43 (elsePart)
+
+
+State 131
+
+   40 index2: DOUBLE_DOTS expr SQUARE_BRACKETS_CLOSE •
+
+    $default  reduce using rule 40 (index2)
+
+
+State 132
+
+   14 type: ARRAY SQUARE_BRACKETS_OPEN NUMBER DOUBLE_DOTS NUMBER SQUARE_BRACKETS_CLOSE OF • simpleType
+
+    INTEGER  shift, and go to state 23
+    REAL     shift, and go to state 25
+    BOOLEAN  shift, and go to state 26
+
+    simpleType  go to state 133
+
+
+State 133
+
+   14 type: ARRAY SQUARE_BRACKETS_OPEN NUMBER DOUBLE_DOTS NUMBER SQUARE_BRACKETS_CLOSE OF simpleType •
+
+    $default  reduce using rule 14 (type)
